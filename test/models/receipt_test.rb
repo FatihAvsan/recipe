@@ -3,7 +3,13 @@ require 'test_helper'
 class ReceiptTest < ActiveSupport::TestCase
 
   def setup
-    @receipt = Receipt.new(name: "vegetable", description: "great vegetable recipe")
+    @chef = Chef.create!(chefname: "fatih", email: "fatihavsan@gmail.com")
+    @receipt = @chef.receipts.build(name: "vegetable", description: "great vegetable recipe")
+  end
+  
+  test "recipe without chef should be invalid" do
+    @receipt.chef_id = nil
+    assert_not @receipt.valid?
   end
   
   test "recipe should be valid" do
