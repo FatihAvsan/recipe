@@ -3,7 +3,8 @@ require 'test_helper'
 class ReceiptsTest < ActionDispatch::IntegrationTest
   
   def setup
-    @chef = Chef.create!(chefname: "fatih", email:"fatihavsan@gmail.com")
+    @chef = Chef.create!(chefname: "fatih", email: "fatihavsan@gmail.com",
+                        password: "password", password_confirmation: "password")
     @receipt = Receipt.create(name: "tavuk", description: " bir yemektir", chef: @chef)
     @receipt2 = @chef.receipts.build(name: "sezar salata", description: "bir salata çeşitidir")
     @receipt2.save

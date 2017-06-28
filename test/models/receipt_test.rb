@@ -3,7 +3,8 @@ require 'test_helper'
 class ReceiptTest < ActiveSupport::TestCase
 
   def setup
-    @chef = Chef.create!(chefname: "fatih", email: "fatihavsan@gmail.com")
+    @chef = Chef.create!(chefname: "fatih", email: "fatihavsan@gmail.com",
+                        password: "password", password_confirmation: "password")
     @receipt = @chef.receipts.build(name: "vegetable", description: "great vegetable recipe")
   end
   
@@ -35,5 +36,7 @@ class ReceiptTest < ActiveSupport::TestCase
     @receipt.description = "a" * 501
     assert_not @receipt.valid?
   end
+  
+
   
 end
