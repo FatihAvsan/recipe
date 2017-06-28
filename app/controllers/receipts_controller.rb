@@ -2,7 +2,7 @@ class ReceiptsController < ApplicationController
   before_action :set_receipt, only: [:show, :edit, :update] 
   
   def index
-    @receipts = Receipt.all
+    @receipts = Receipt.paginate(page: params[:page], per_page: 5)
   end
   
   def show

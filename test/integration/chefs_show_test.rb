@@ -15,6 +15,7 @@ class ChefsShowTest < ActionDispatch::IntegrationTest
     assert_select "a[href=?]", receipt_path(@receipt2), text: @receipt2.name
     assert_match @receipt.description, response.body
     assert_match @receipt2.description, response.body
+    assert_match @chef.chefname, response.body
   end
 
 end

@@ -1,3 +1,12 @@
 <%= render 'shared/page_title', title: "showing all receipts" %>
 
+
+<div align="center">
+  <%= will_paginate %>
+</div>
+
 <%= render 'receipt', obj: @receipts %>
+
+<div align="center">
+  <%= will_paginate %>
+</div>
