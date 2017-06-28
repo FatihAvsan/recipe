@@ -25,9 +25,12 @@ class ReceiptsTest < ActionDispatch::IntegrationTest
   test "should get receipts show" do
     get receipt_path(@receipt)
     assert_template 'receipts/show'
-    assert_match @receipt.name, response.body
+    #assert_match @receipt.name, response.body
     assert_match @receipt.description, response.body
     assert_match @chef.chefname, response.body
+    assert_select 'a[href=?]', edit_receipt_path(@receipt), text: "Edit this receipt"
+    assert_select 'a[href=?]', receipt_path(@receipt), text: "Delete this receipt"
+    assert_select 'a[href=?]', receipts_path, text: "Return to receipts listing"
   end
   
   test "create new valid receipt" do

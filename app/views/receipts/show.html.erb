@@ -17,6 +17,14 @@
             <small><%= @receipt.chef.chefname.capitalize %> </small>
             <div class="pull-right"><%= time_ago_in_words(@receipt.created_at) %> ago</div>
           </p>
-    </div>  
+    </div>
+    <div class= "receipt-actions">
+      <%= link_to "Edit this receipt", edit_receipt_path(@receipt), class: "btn btn-xs btn-warning" %>
+      <%= link_to "Delete this receipt", receipt_path(@receipt), method: :delete,
+                                         data: { confirm: "Are you sure you want to delete this receipt?"},
+                                         class: "btn btn-xs btn-danger" %>
+     <%= link_to "Return to receipts listing", receipts_path, class: "btn btn-xs btn-primary" %>
+
+    </div>
   </div>
 </div>  
