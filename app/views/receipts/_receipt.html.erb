@@ -1,0 +1,16 @@
+<% obj.each do |receipt| %>
+  <div class="row">
+    <div class="col-md-2">
+      <section class="chef_info center">
+        <%= gravatar_for(receipt.chef, size: 120) %>
+      </section>
+    </div>
+    <div class="col-md-8 well">
+      <h4><%= link_to receipt.name, receipt_path(receipt) %></h4>
+      <p><%= truncate(receipt.description, length: 150) %></p>
+      <p>
+        <span class="quiet"><small>Created <%= time_ago_in_words(receipt.created_at) %> ago</small></span>
+      </p>
+    </div>
+  </div>
+<% end %>
