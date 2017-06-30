@@ -8,6 +8,7 @@ class ReceiptsEditTest < ActionDispatch::IntegrationTest
   end
   
   test "reject invalid receipt update" do
+    sign_in_as(@chef, "password")
     get edit_receipt_path(@receipt)
     assert_template 'receipts/edit'
     patch receipt_path(@receipt), params: { receipt: { name: " ", description: "some description" }}
@@ -18,6 +19,7 @@ class ReceiptsEditTest < ActionDispatch::IntegrationTest
   end
   
   test "successfuly edit a receipt" do
+    sign_in_as(@chef, "password")
     get edit_receipt_path(@receipt)
     assert_template 'receipts/edit'
     updated_name = "updated receipt name"

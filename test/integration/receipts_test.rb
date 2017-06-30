@@ -24,6 +24,7 @@ class ReceiptsTest < ActionDispatch::IntegrationTest
   end
   
   test "should get receipts show" do
+    sign_in_as(@chef, "password")
     get receipt_path(@receipt)
     assert_template 'receipts/show'
     #assert_match @receipt.name, response.body
@@ -35,6 +36,7 @@ class ReceiptsTest < ActionDispatch::IntegrationTest
   end
   
   test "create new valid receipt" do
+    sign_in_as(@chef, "password")
     get new_receipt_path
     assert_template 'receipts/new'
     name_of_receipt = "tavuk ızgara"
@@ -48,6 +50,7 @@ class ReceiptsTest < ActionDispatch::IntegrationTest
   end
   
   test "reject invalid receipt submission" do
+    sign_in_as(@chef, "password")
     get new_receipt_path
     assert_template 'receipts/new'
     assert_no_difference 'Receipt.count' do

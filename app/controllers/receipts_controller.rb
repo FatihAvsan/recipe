@@ -1,5 +1,7 @@
 class ReceiptsController < ApplicationController
-  before_action :set_receipt, only: [:show, :edit, :update] 
+  before_action :set_receipt, only: [:show, :edit, :update, :destroy] 
+  before_action :require_user, except: [:index, :show]
+  before_action :require_same_user, only: [:edit, :update, :destroy]
   
   def index
     @receipts = Receipt.paginate(page: params[:page], per_page: 5)
@@ -14,7 +16,7 @@ class ReceiptsController < ApplicationController
   
   def create
     @receipt = Receipt.new(receipt_params)
-    @receipt.chef = Chef.first
+    @receipt.chef = current_chef
     if @receipt.save
       flash[:success] = "Receipt was created successfuly!"
       redirect_to receipt_path(@receipt)
@@ -49,5 +51,12 @@ class ReceiptsController < ApplicationController
   
     def receipt_params
       params.require(:receipt).permit(:name, :description)
+    end
+    
+    def require_same_user
+      if current_chef != @receipt.chef and !current_chef.admin?
+        flash[:danger] = "You can only edit or delete your own receipts"
+        redirect_to receipts_path
+      end
     end
 end

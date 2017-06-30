@@ -8,6 +8,7 @@ class ReceiptsDeleteTest < ActionDispatch::IntegrationTest
   end
   
   test "successfuly delete a receipt" do
+    sign_in_as(@chef, "password")
     get receipt_path(@receipt)
     assert_template 'receipts/show'
     assert_select 'a[href=?]', receipt_path(@receipt), text: "Delete this receipt"

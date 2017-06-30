@@ -73,4 +73,12 @@ class ChefTest < ActiveSupport::TestCase
     assert_not @chef.valid?
   end
   
+  test "associated receipts should be destroyed" do
+    @chef.save
+    @chef.receipts.create!(name: "testing destroy", description: "testing destroy function")
+    assert_difference 'Receipt.count', -1 do
+      @chef.destroy
+    end
+  end
+  
 end
