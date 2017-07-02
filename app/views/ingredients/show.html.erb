@@ -1,0 +1,14 @@
+<%= render 'shared/page_title', title: "#{@ingredient.name}" %>
+
+<% if @ingredient.receipts.count != 0 %>
+  <h4 align="center">Receipt's containing <%= @ingredient.name %></h4>
+  <div align="center">
+  <%= will_paginate @ingredient_receipts %>
+  </div>
+  <%= render 'receipts/receipt', obj: @ingredient_receipts %>
+  <div align="center">
+  <%= will_paginate @ingredient_receipts %>
+  </div>
+<% else %>
+  <h4 align="center">No receipts yet</h4>
+<% end %>

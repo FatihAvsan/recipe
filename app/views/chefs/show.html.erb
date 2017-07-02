@@ -5,11 +5,15 @@
   </div>
 </div>
 
-<h4 align="center"><%= @chef.chefname %>'s receipts</h4>
-<div align="center">
-<%= will_paginate @chef_receipts %>
-</div>
-<%= render 'receipts/receipt', obj: @chef_receipts %>
-<div align="center">
-<%= will_paginate @chef_receipts %>
-</div>
+<% if @chef.receipts.count != 0 %>
+  <h4 align="center"><%= @chef.chefname %>'s receipts</h4>
+  <div align="center">
+  <%= will_paginate @chef_receipts %>
+  </div>
+  <%= render 'receipts/receipt', obj: @chef_receipts %>
+  <div align="center">
+  <%= will_paginate @chef_receipts %>
+  </div>
+<% else %>
+  <h4 align="center">No receipts yet</h4>
+<% end %>

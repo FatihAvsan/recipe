@@ -5,4 +5,7 @@ class Receipt < ApplicationRecord
   belongs_to :chef
   validates :chef_id, presence: true
   default_scope -> { order(updated_at: :desc)}
+  has_many :receipt_ingredients
+  has_many :ingredients, through: :receipt_ingredients
+  has_many :comments, dependent: :destroy
 end

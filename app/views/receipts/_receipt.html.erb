@@ -8,8 +8,12 @@
     <div class="col-md-8 well">
       <h4><%= link_to receipt.name, receipt_path(receipt) %></h4>
       <p><%= truncate(receipt.description, length: 150) %></p>
+      <% if receipt.ingredients.any? %>
+        <p>Ingredients: <%= render receipt.ingredients %></p>
+      <% end %>
       <p>
-        <span class="quiet"><small>Created <%= time_ago_in_words(receipt.created_at) %> ago</small></span>
+        <span class="quiet"><small>Created <%= time_ago_in_words(receipt.created_at) %> ago <%= receipt.chef.chefname.capitalize %>
+                                                          | <%= pluralize(receipt.comments.count, 'Comment') %></small></span>
       </p>
       <% if logged_in? && (current_chef ==  receipt.chef || current_chef.admin?) %>
         <div class="receipt-actions">

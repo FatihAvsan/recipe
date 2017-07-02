@@ -8,6 +8,8 @@ class ReceiptsController < ApplicationController
   end
   
   def show
+    @comment = Comment.new
+    @comments = @receipt.comments.paginate(page: params[:page], per_page: 5)
   end
   
   def new
@@ -50,7 +52,7 @@ class ReceiptsController < ApplicationController
     end
   
     def receipt_params
-      params.require(:receipt).permit(:name, :description)
+      params.require(:receipt).permit(:name, :description, ingredient_ids: [])
     end
     
     def require_same_user

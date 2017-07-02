@@ -4,6 +4,9 @@
   <div class="well col-md-8 col-md-offset-2">
     <h4 class="center description"><strong>Steps: </strong></h4>
     <hr/>
+    <% if @receipt.ingredients.any? %>
+      <p>Ingredients: <%= render @receipt.ingredients %></p>
+    <% end %>
     <%= simple_format(@receipt.description) %>
     <hr/>
     <div class="pull-right">
@@ -11,7 +14,7 @@
           <em></em>Created by:</em>
         </p>
         <p class="center">
-          <%= link_to gravatar_for(@receipt.chef), receipts_path %>
+          <%= link_to gravatar_for(@receipt.chef), chef_path(@receipt.chef) %>
           </p>
           <p class="center">
             <small><%= @receipt.chef.chefname.capitalize %> </small>
@@ -30,3 +33,45 @@
     </div>
   </div>
 </div>  
+
+<% if logged_in? %>
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2">
+      <h3>Comments: </h3>
+      <hr />
+      <%= form_for([@receipt, @comment], :html => {class: "form-horizontal", role: "form"}) do |f| %>
+        <div class="form-group">
+          <div class="control-label col-md-2">
+            <%= f.label :description, "Comment" %>
+          </div>
+          <div class="col-md-8">
+            <%= f.text_area :description, rows: 8, class: "form-control", placeholder: "Enter Comment Here" %>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-md-offset-2 col-md-10">
+            <%= f.submit "Submit Comment", class: "btn btn-primary btn-lg btn-xlarge" %>
+          </div>
+        </div>
+      <% end %>
+      <hr/>
+    </div>
+  </div>
+<% end %>
+
+<% if @receipt.comments != 0 %>
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2">
+      <h3>Prior Comments: </h3>
+      <div id="messages">
+        <%= render partial: 'comments/comments', object: @comments %>
+      </div>
+    </div>
+  </div>
+  <% else %>
+  <div class= "row">
+    <div class="col-md-8 col-md-offset-2">
+      <h3>No Comments Yet!</h3>
+    </div>
+  </div>
+<% end %>

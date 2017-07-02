@@ -59,3 +59,4 @@ class ChefsEditTest < ActionDispatch::IntegrationTest
   end
   
 end
+  

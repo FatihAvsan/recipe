@@ -66,7 +66,7 @@ class ChefsController < ApplicationController
   
   def require_admin
     if logged_in? && !current_chef.admin?
-      flash[:daneger] = "Only admin users can perform that action"
+      flash[:danger] = "Only admin users can perform that action"
       redirect_to root_path
     end
   end
