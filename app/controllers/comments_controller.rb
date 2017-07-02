@@ -7,8 +7,9 @@ class CommentsController < ApplicationController
     @comment = @receipt.comments.build(comment_params)
     @comment.chef = current_chef
     if @comment.save
-      flash[:success] = "Comment was created successfuly"
-      redirect_to receipt_path(@receipt)
+      ActionCable.server.broadcast "comments", render(partial: 'comments/comment', object: @comment)
+      #flash[:success] = "Comment was created successfuly"
+      #redirect_to receipt_path(@receipt)
     else
       flash[:danger] = "Comment was not created"
       redirect_to :back
